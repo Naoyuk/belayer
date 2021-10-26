@@ -17,11 +17,21 @@ RSpec.describe "/posts", type: :request do
   # Post. As you add validations to Post, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      date: Date.new.strftime("%Y-%m-%d"),
+      start_time: Time.new.strftime("%H:%M"),
+      end_time: Time.new.strftime("%H:%M"),
+      kind_of_climbing: 0
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      date: nil,
+      start_time: nil,
+      end_time: nil,
+      kind_of_climbing: 0
+    }
   }
 
   describe "GET /index" do
@@ -86,14 +96,19 @@ RSpec.describe "/posts", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          date: Date.tomorrow.strftime("%Y-%m-%d"),
+          start_time: Time.new.strftime("%H:%M"),
+          end_time: Time.new.strftime("%H:%M"),
+          kind_of_climbing: 0
+        }
       }
 
       it "updates the requested post" do
         post = Post.create! valid_attributes
         patch post_url(post), params: { post: new_attributes }
         post.reload
-        skip("Add assertions for updated state")
+        expect(response).to redirect_to(post_url(post))
       end
 
       it "redirects to the post" do
