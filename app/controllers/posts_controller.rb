@@ -64,6 +64,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:date, :start_time, :end_time, :kind_of_climbing)
+      params.require(:post).permit(:date, :start_time, :end_time, :kind_of_climbing, :describe)
     end
 end
