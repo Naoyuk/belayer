@@ -1,0 +1,33 @@
+<div class="profile">
+  <p>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </p>
+
+  <p>
+    <strong>E-mail:</strong>
+    <%= @user.email %>
+  </p>
+
+  <div class="users_posts">
+    <table>
+      <thead>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Kind of climbing</th>
+        <th>Describe</th>
+      </thead>
+      <% @user.posts.each do |post| %>
+        <tr>
+          <td><%= post.date %></td>
+          <td><%= post.start_time %></td>
+          <td><%= post.end_time %></td>
+          <td><%= post.kind_of_climbing %></td>
+          <td><%= post.describe.truncate(20, omission: '...') if post.describe %></td>
+      <% end %>
+    </table>
+  </div>
+
+  <%= link_to 'Back', posts_path %>
+</div>
