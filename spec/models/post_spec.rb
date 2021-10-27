@@ -3,11 +3,18 @@ require 'rails_helper'
 RSpec.describe Post, type: :model do
   describe 'validates for parameters' do
     before do
-      @post = Post.new(
+      user = User.create(
+        name: 'Test',
+        email: 'test@example.com',
+        password: '123456',
+        password_confirmation: '123456'
+      )
+      @post = user.posts.build(
         date: Date.today.strftime("%Y-%m-%d"),
         start_time: Time.new.strftime("%H:%M"),
         end_time: Time.new.strftime("%H:%M"),
-        kind_of_climbing: 0
+        kind_of_climbing: 0,
+        describe: 'test test'
       )
     end
 
