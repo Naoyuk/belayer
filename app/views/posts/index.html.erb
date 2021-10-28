@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
+<%= turbo_frame_tag 'new_post', src: new_post_path, target: :_top %>
