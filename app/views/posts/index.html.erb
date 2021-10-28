@@ -2,7 +2,11 @@
 
 <h1>Posts</h1>
 
-<table>
+<div class="new_post">
+  <%= turbo_frame_tag 'new_post', src: new_post_path, target: :_top %>
+</div>
+
+<table class="posts_table">
   <thead>
     <tr>
       <th>User</th>
@@ -32,4 +36,3 @@
 
 <br>
 
-<%= turbo_frame_tag 'new_post', src: new_post_path, target: :_top %>
