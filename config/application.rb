@@ -20,7 +20,7 @@ module Belayer
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.generators do |g|
-      t.text_framework :rspec,
+      g.text_framework :rspec,
         view_specs: false,
         helper_specs: false,
         routing_specs: false
