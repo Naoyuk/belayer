@@ -7,7 +7,7 @@ RSpec.describe "/posts", type: :request do
       date: Date.new.strftime("%Y-%m-%d"),
       start_time: Time.new.strftime("%H:%M"),
       end_time: Time.new.strftime("%H:%M"),
-      kind_of_climbing: 0,
+      kind_of_climbing: :sport,
       describe: 'test test'
     }
   }
@@ -17,7 +17,7 @@ RSpec.describe "/posts", type: :request do
       date: nil,
       start_time: nil,
       end_time: nil,
-      kind_of_climbing: 0,
+      kind_of_climbing: nil,
       describe: nil
     }
   }
@@ -97,7 +97,7 @@ RSpec.describe "/posts", type: :request do
           date: Date.tomorrow.strftime("%Y-%m-%d"),
           start_time: Date.tomorrow.strftime("%H:%M"),
           end_time: Date.tomorrow.strftime("%H:%M"),
-          kind_of_climbing: 0
+          kind_of_climbing: :multi_pitches
         }
       }
 

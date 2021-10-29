@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :kind_of_climbing %>
-    <%= form.number_field :kind_of_climbing %>
+    <%= form.select :kind_of_climbing, Post.kind_of_climbings.keys, {prompt: "Select"}, class: "select-box" %>
   </div>
 
   <div class="field">
