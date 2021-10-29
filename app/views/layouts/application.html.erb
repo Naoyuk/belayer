@@ -12,7 +12,11 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <%= yield %>
+    <div id="container">
+      <%= render 'layouts/header' %>
+      <div id="contents">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
