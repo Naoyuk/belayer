@@ -6,7 +6,7 @@
     </h1>
     <nav>
       <li class="tab"><%= link_to 'Home', root_path, class: "button button-small button-inverse" %></li>
-      <li class="tab"><%= link_to 'Profile', user_path(current_user), class: "button button-small button-inverse" %></li>
+      <li class="tab"><%= link_to 'Profile', current_user ? user_path(current_user) : root_path, class: "button button-small button-inverse" %></li>
       <li class="tab"><%= link_to 'Log In', new_user_session_path, class: "button button-small button-inverse" %></li>
       <li class="tab"><%= link_to 'Sign Up', new_user_registration_path, class: "button button-small button-inverse" %></li>
       <li class="tab"><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "button button-small button-inverse" %></li>
