@@ -24,7 +24,6 @@
   position: relative;
   background: #fff;
   padding: 0;
-  margin-top: 40px;
   margin-bottom: 1em;
   border-bottom: 1px solid #eee;
   border-right: 1px solid #eee;
@@ -67,3 +66,8 @@
 #contents .post h2 .time {
   padding-left: 10px;
 }
+
+#contents .post .post-link {
+  font-size: 15px;
+}
+
