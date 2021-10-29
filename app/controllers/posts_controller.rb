@@ -1,6 +1,4 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
-
   # GET /posts or /posts.json
   def index
     @posts = Post.all.order(date: :desc, start_time: :asc)

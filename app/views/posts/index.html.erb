@@ -1,14 +1,15 @@
 <div class="main">
   <p id="notice"><%= notice %></p>
-  <div class="new_post">
-    <%= turbo_frame_tag 'new_post', src: new_post_path, target: :_top %>
-  </div>
 
   <div class="contents">
     <% @posts.each do |post| %>
       <div class="post">
-        <span class="post-owner"><%= link_to post.user.name %></span>
-        <h2><%= "#{post.date.strftime("%A, %b %d")}" %><br><%= "#{post.start_time.strftime("%-H:%M %p")} - #{post.end_time.strftime("%-H:%M %p")}" %></h2>
+        <h2>
+          <span class="post-owner"><%= link_to post.user.name, post_path(post) %></span>
+          <span class="date"><%= "#{post.date.strftime("%A, %b %d")}" %></span>
+          <br>
+          <span class="time"><%= "#{post.start_time.strftime("%-H:%M %p")} - #{post.end_time.strftime("%-H:%M %p")}" %></span>
+        </h2>
         <div class="post-body">
           <p><%= post.kind_of_climbing %></p>
           <p><%= post.describe %></p>
