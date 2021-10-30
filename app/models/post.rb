@@ -4,6 +4,8 @@ class Post < ApplicationRecord
   validates :end_time, presence: true
 
   belongs_to :user
+  
+  has_many :answers
 
   enum kind_of_climbing: {
     trad: 0,
