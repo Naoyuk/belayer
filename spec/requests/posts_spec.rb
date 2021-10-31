@@ -62,15 +62,15 @@ RSpec.describe "/posts", type: :request do
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Post" do
-        pending("TODO: Use post method and association at the same time")
+        sign_in user
         expect {
-          post posts_url, params: { post: valid_attributes }
+          post posts_url, params: { post: valid_attributes, user_id: user.id }
         }.to change(Post, :count).by(1)
       end
 
       it "redirects to the created post" do
-        pending("TODO: Use post method and association at the same time")
-        post posts_url, params: { post: valid_attributes }
+        sign_in user
+        post posts_url, params: { post: valid_attributes, user_id: user.id }
         expect(response).to redirect_to(post_url(Post.last))
       end
     end

@@ -14,12 +14,11 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new(answer_params)
-    byebug
     @post = Post.find(params[:answer][:post_id])
 
     if @answer.save
       respond_to do |format|
-        format.html { redirect_to post_url(@answer.post), notice: "Message was successfully sent." }
+        format.html { redirect_to post_url(@answer.post_id), notice: "Message was successfully sent." }
         format.json { render :show, status: :created, location: @answer.post }
       end
     else
