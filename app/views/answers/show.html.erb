@@ -1,2 +1,16 @@
-<h1>Answers#show</h1>
-<p>Find me in app/views/answers/show.html.erb</p>
+<div class="answer">
+  <h2>
+    <span class="answer-owner"><%= link_to @answer.user.name, answer_path(@answer) %></span>
+    <span class="date"><%= "#{@answer.created_at.strftime("%A, %b %d %-H:%M %p")}" %></span>
+  </h2>
+  <div class="answer-body">
+    <p><%= @answer.body %></p>
+  </div>
+
+  <div class="post-link">
+    <% if @answer.post.user_id != current_user.id %>
+      <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id), class: "button button-submit" %>
+    <% end %>
+    <%= link_to 'Back', answers_path %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   def index
-    @answers = Answer.all.order(created_at: :desc)
+    @answers = Answer.joins(:post).where(post: {user_id: current_user.id}).order(created_at: :desc)
   end
 
   def show

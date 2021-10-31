@@ -1,20 +1,16 @@
-<div class="main">
-  <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
-  <div class="contents">
-    <% @posts.each do |post| %>
-      <div class="post">
-        <h2>
-          <span class="post-owner"><%= link_to post.user.name, post_path(post) %></span>
-          <span class="date"><%= "#{post.date.strftime("%A, %b %d")}" %></span>
-          <br>
-          <span class="time"><%= "#{post.start_time.strftime("%-H:%M %p")} - #{post.end_time.strftime("%-H:%M %p")}" %></span>
-        </h2>
-        <div class="post-body">
-          <p><%= post.kind_of_climbing.camelize %></p>
-          <p><%= post.describe %></p>
-        </div>
+  <% @posts.each do |post| %>
+    <div class="post">
+      <h2>
+        <span class="post-owner"><%= link_to post.user.name, post_path(post) %></span>
+        <span class="date"><%= "#{post.date.strftime("%A, %b %d")}" %></span>
+        <br>
+        <span class="time"><%= "#{post.start_time.strftime("%-H:%M %p")} - #{post.end_time.strftime("%-H:%M %p")}" %></span>
+      </h2>
+      <div class="post-body">
+        <p><%= post.kind_of_climbing.camelize %></p>
+        <p><%= post.describe %></p>
       </div>
-    <% end %>
-  </div>
-</div>
+    </div>
+  <% end %>

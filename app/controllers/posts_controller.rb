@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.order(date: :desc, start_time: :asc)
+    @posts = Post.where.not(user_id: current_user.id).order(date: :desc, start_time: :asc)
   end
 
   # GET /posts/1 or /posts/1.json

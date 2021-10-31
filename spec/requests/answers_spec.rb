@@ -34,6 +34,17 @@ RSpec.describe "Answers", type: :request do
   end
 
   describe "POST /create" do
+    it "is valid to answer to other's post" do
+      answer = FactoryBot.build(:answer, user: @answerer, post: @post)
+      expect(answer).to be_valid
+    end
+
+    it "is invalid to answer to your own post" do
+      pending("TODO: Implement in Model")
+      answer = FactoryBot.build(:answer, user: @owner, post: @post)
+      expect(answer).to_not be_valid
+    end
+
     context "with valid parameters" do
       before do
         @valid_attributes = { body: 'Text text,.', post_id: @post.id, user_id: @answerer.id }
