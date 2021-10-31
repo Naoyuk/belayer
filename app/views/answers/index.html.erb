@@ -2,7 +2,7 @@
 <% @answers.each do |answer| %>
   <div class="answer">
     <h2>
-      Message from 
+      A message from 
       <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
     </h2>
   </div>

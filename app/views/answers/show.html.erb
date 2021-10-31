@@ -1,10 +1,21 @@
 <div class="answer">
   <h2>
-    <span class="answer-owner"><%= link_to @answer.user.name, answer_path(@answer) %></span>
-    <span class="date"><%= "#{@answer.created_at.strftime("%A, %b %d %-H:%M %p")}" %></span>
+    A message from
+    <span class="answerer"><%= link_to "#{@answer.user.name} ( #{@answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(@answer) %></span>
   </h2>
+
   <div class="answer-body">
     <p><%= @answer.body %></p>
+  </div>
+
+  <h2>Original Post</h2>
+  <div class="post">
+    <p>Date: <%= "#{@answer.post.date.strftime("%A, %b %d")}" %></p>
+    <p>Time: <%= "#{@answer.post.start_time.strftime("%-H:%M %p")} - #{@answer.post.end_time.strftime("%-H:%M %p")}" %></p>
+    <div class="post-body">
+      <p><%= @answer.post.kind_of_climbing.camelize %></p>
+      <p><%= @answer.post.describe %></p>
+    </div>
   </div>
 
   <div class="post-link">
