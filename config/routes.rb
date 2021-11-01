@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   resources :users
   resources :answers
 
+  patch '/answers/:id/unread', action: :unread, controller: 'answers'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

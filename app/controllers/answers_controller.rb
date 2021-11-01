@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
 
   def show
     @answer = Answer.find(params[:id])
+    @answer.read = true
+    @answer.save
   end
 
   def new
@@ -24,6 +26,32 @@ class AnswersController < ApplicationController
     else
       respond_to do |format|
         format.html { render :new, post_id: @post.id }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @answer = Answer.find(params[:id])
+    respond_to do |format|
+      if @answer.update(answer_params)
+        format.html { redirect_to answers_url, notice: "Post was successfully updated." }
+        format.json { render :index }
+      else
+        format.html { render :edit }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def unread
+    @answer = Answer.find(params[:id])
+    respond_to do |format|
+      if @answer.unread
+        format.html { redirect_to answers_url }
+        #TODO: format.json is not written yet. I'm wondering what should I return.
+      else
+        format.html { render :show }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
       end
     end

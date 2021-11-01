@@ -22,6 +22,10 @@
     <% if @answer.post.user_id != current_user.id %>
       <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id), class: "button button-submit" %>
     <% end %>
+    <%= form_with model: @answer, url: { controller: 'answers', action: 'unread' } do |f| %>
+      <%= f.hidden_field :read, :value => false %>
+      <%= f.submit "Make this message unread", class: "button button-unread" %>
+    <% end %>
     <%= link_to 'Back', answers_path %>
   </div>
 </div>
