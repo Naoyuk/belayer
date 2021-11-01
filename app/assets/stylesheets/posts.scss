@@ -1,3 +1,67 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.main {
+  max-width: 1200px;
+}
+
+#contents .post, #contents .post .post-body {
+  color: #666;
+  font-size: 80%;
+  font-family: "Open Sans Condensed", "Helvetica Neue", sans-serif;
+  padding: 10px 20px;
+  border-top: 1px solid #fff;
+  background: #faf9f5;
+}
+
+#contents .post {
+  position: relative;
+  background: #fff;
+  padding: 0;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #fff;
+}
+
+#contents .post h2 .post-owner {
+  display: block;
+  background: #333;
+  color: #fff;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+#contents .post .post-owner a {
+  display: block;
+  padding-left: 10px;
+  font-family: "Open Sans Condensed", "Helvetica Neue", sans-serif;
+  text-decoration: none;
+  color: #fff;
+}
+
+#contents .post .post-owner a:hover {
+  background-color: #4095d1;
+}
+
+#contents .post h2 {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  font-size: 2.5em;
+  line-height: 1.2em;
+}
+
+#contents .post h2 .date {
+  padding-left: 10px;
+  font-size: 0.8em;
+}
+
+#contents .post h2 .time {
+  padding-left: 10px;
+}
+
+#contents .post .post-link {
+  font-size: 15px;
+}
+

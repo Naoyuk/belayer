@@ -1,0 +1,190 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  display: block;
+  margin: 0;
+  padding: 0 auto;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  background-color: transparent;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+h1 a:hover {
+  background-color: transparent;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+#container {
+  background: url("<%= asset_path('bg_repeat.png') %>");
+}
+
+header {
+  display: block;
+}
+
+.form {
+  margin-top: 10px;
+  padding: 10px auto;
+}
+
+.form .form-controller {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.form .form-controller input,
+.form .form-controller textarea {
+  width: 100%;
+  font-size: 1.2em;
+  border-radius: 5px;
+  border: #4095d1 solid;
+}
+
+.form .form-controller select {
+  height: 1.5em;
+  font-size: 1.2em;
+  border-radius: 5px;
+  border: #4095d1 solid;
+}
+
+.form .form-time {
+  display: inline;
+}
+
+.button {
+  color: #666;
+  background-color: #EEE;
+  border-color: #EEE;
+  font-weight: 300;
+  font-size: 16px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 28px;
+  height: 28px;
+  padding: 0 28px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  box-sizing: border-box;
+  transition-property: all;
+  transition-duration: .3s;
+}
+
+.button-small {
+  font-size: 12px;
+  height: 21px;
+  line-height: 21px;
+  padding: 0 21px;
+}
+
+.button-inverse {
+  background-color: #222;
+  border-color: #222;
+  color: #EEE;
+}
+
+.button-submit {
+  width: 100%;
+  height: 40px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #4095d1, #7bb3da);
+  border-radius: 5px;
+  color: #fff;
+}
+
+#header-site {
+  border-bottom: 1px solid #fff;
+  background: #000 url("<%= asset_path('header_bg.jpg') %>");
+  background-size: cover;
+}
+
+#header-site-inner {
+  padding: 40px 30px 60px 30px;
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+}
+
+#header-site #header-site-inner h1 {
+  text-shadow: 0 1px 5px #000;
+  font-size: 300%;
+  line-height: 1.4;
+  color: #fff;
+}
+
+#header-site #header-site-inner h1 a {
+  color: #fff;
+}
+
+#header-site #header-site-inner h1 span {
+  display: block;
+  font-size: 11px;
+  font-weight: normal;
+}
+
+#header-site #header-site-inner nav {
+  position: absolute;
+  right: 30px;
+  bottom: 0;
+}
+
+#header-site #header-site-inner nav li.tab {
+  margin: 0 1px;
+  display: block;
+  float: left;
+  color: #fff;
+  font-family: "Open Sans Condensed", "Helvetica Neue", sans-serif;
+  text-align: center;
+}
+
+#header-site #header-site-inner nav .button {
+  color: #fff;
+  font-family: "Open Sans Condensed", "Helvetica Neue", sans-serif;
+  padding: 0.4em 1.5em;
+  height: 2.5em;
+}
+
+#contents {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 30px 40px 30px;
+}
+

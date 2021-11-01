@@ -1,0 +1,24 @@
+// Place all the styles related to the answers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.answers {
+  padding: 20px;
+}
+
+.answer {
+  padding: 10px 10px;
+  height: 30px;
+}
+
+.answer h2 {
+  display: inline;
+}
+
+.answer .new-message {
+  display: inline;
+  color: #fff;
+  background-color: tomato;
+  border-radius: 100%;
+  font-weight: normal;
+}
+

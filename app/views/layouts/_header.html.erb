@@ -1,10 +1,21 @@
-<header>
-  <ul>
-    <li><%= link_to 'Home', root_path %></li>
-    <li><%= link_to 'Profile', current_user ? user_path(current_user) : root_path %></li>
-    <li><%= link_to 'Log In', new_user_session_path %></li>
-    <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
-  </ul>
+<header id="header-site">
+  <div id="header-site-inner">
+    <h1 class="title">
+      <%= link_to 'Belayer', root_path %>
+      <span class="tagline">This is an application which you can find your belay partner in your rock trip!</span>
+    </h1>
+    <nav>
+      <li class="tab"><%= link_to 'Home', root_path, class: "button button-small button-inverse" %></li>
+      <% if current_user %>
+        <li class="tab"><%= link_to 'New Post', new_post_path, class: "button button-small button-inverse" %></li>
+        <li class="tab"><%= link_to 'Message Box', answers_path, class: "button button-small button-inverse" %></li>
+        <li class="tab"><%= link_to 'Profile', user_path(current_user), class: "button button-small button-inverse" %></li>
+        <li class="tab"><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: "button button-small button-inverse" %></li>
+      <% else %>
+        <li class="tab"><%= link_to 'Log In', new_user_session_path, class: "button button-small button-inverse" %></li>
+        <li class="tab"><%= link_to 'Sign Up', new_user_registration_path, class: "button button-small button-inverse" %></li>
+      <% end %>
+    </nav>
+  </div>
 </header>
 

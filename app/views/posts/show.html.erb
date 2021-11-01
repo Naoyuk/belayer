@@ -1,29 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @post.date %>
-</p>
+<div class="post">
+  <h2>
+    <span class="post-owner"><%= link_to @post.user.name, post_path(@post) %></span>
+    <span class="date"><%= "#{@post.date.strftime("%A, %b %d")}" %></span>
+    <br>
+    <span class="time"><%= "#{@post.start_time.strftime("%-H:%M %p")} - #{@post.end_time.strftime("%-H:%M %p")}" %></span>
+  </h2>
+  <div class="post-body">
+    <p><%= @post.kind_of_climbing.camelize %></p>
+    <p><%= @post.describe %></p>
+  </div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @post.start_time %>
-</p>
-
-<p>
-  <strong>End time:</strong>
-  <%= @post.end_time %>
-</p>
-
-<p>
-  <strong>Kind of climbing:</strong>
-  <%= @post.kind_of_climbing %>
-</p>
-
-<div>
-  <strong>Description</strong>
-  <%= @post.describe %>
+  <div class="post-link">
+    <% if @post.user_id == current_user.id %>
+      <%= link_to 'Edit', edit_post_path(@post) %> |
+    <% else %>
+      <%= link_to 'Answer', new_answer_path(post_id: @post.id), class: "button button-submit" %>
+    <% end %>
+    <%= link_to 'Back', posts_path %>
+  </div>
 </div>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>

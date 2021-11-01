@@ -1,42 +1,47 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="form">
+  <%= form_with(model: post) do |form| %>
+    <% if post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-controller form-date">
+      <%= form.label :date %>
+      <%= form.date_select :date %>
+    </div>
+
+    <div class="form-controller">
+      <div class="form-time">
+        <%= form.label :start_time, 'Duration (Start to End)' %>
+        <%= form.time_select :start_time %>
+      </div>
+
+      <span class="time_to_time">-</span>
+
+      <div class="form-time">
+        <%= form.time_select :end_time %>
+      </div>
+    </div>
+
+    <div class="form-controller form-select-box">
+      <%= form.label :kind_of_climbing %>
+      <%= form.select :kind_of_climbing, Post.kind_of_climbings.keys, {prompt: "Select"}, class: "select-box" %>
+    </div>
+
+    <div class="form-controller">
+      <%= form.label :description %>
+      <%= form.text_area :describe, rows: 10 %>
+    </div>
+
+    <div class="form-controller">
+      <%= form.submit "Create Post", class: 'button button-submit' %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.time_select :start_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.time_select :end_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :kind_of_climbing %>
-    <%= form.number_field :kind_of_climbing %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :describe %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

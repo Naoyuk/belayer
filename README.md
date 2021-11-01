@@ -1,24 +1,5 @@
-# README
+# Belayer Finder [![Gem Version][version-image]][version]
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Belayer Finder helps you to find a climbing partner. It makes easy to find a climbing partner when you go to rock trip.
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
