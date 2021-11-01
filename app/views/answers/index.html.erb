@@ -1,0 +1,14 @@
+<h1>Message Box</h1>
+<div class="answers">
+  <% @answers.each do |answer| %>
+    <div class="answer">
+      <% if !answer.read %>
+        <span class="new-message">New</span>
+      <% end %>
+      <h2>
+        A message from 
+        <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
+      </h2>
+    </div>
+  <% end %>
+</div>

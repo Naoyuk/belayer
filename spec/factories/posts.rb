@@ -5,5 +5,6 @@ FactoryBot.define do
     end_time { Time.new.strftime("%H:%M") }
     kind_of_climbing { 0 }
     sequence(:describe) { |n| "test test#{n}" }
+    association :user
   end
 end
