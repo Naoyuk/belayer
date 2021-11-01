@@ -1,14 +1,21 @@
 <h1>Message Box</h1>
 <div class="answers">
-  <% @answers.each do |answer| %>
-    <div class="answer">
-      <% if !answer.read %>
-        <span class="new-message">New</span>
+  <% @posts.each do |post| %>
+    <% if Answer.exists?(post_id: post.id) %>
+      <div class="original-post">
+        <h2>
+          <%= "#{post.date.to_s(:date_for_title)} #{post.start_time.to_s(:time_for_title)} - #{post.end_time.to_s(:time_for_title)}" %>
+        </h2>
+      </div>
+
+      <% post.answers.each do |answer| %>
+        <div class="answer">
+          <% if !answer.read %>
+            <span class="new-message">New</span>
+          <% end %>
+            <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
+        </div>
       <% end %>
-      <h2>
-        A message from 
-        <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
-      </h2>
-    </div>
+    <% end %>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
-<h2><%= "#{@post.user.name} | #{@post.date.strftime("%A, %b %d")} #{@post.start_time.strftime("%-H:%M %p")} - #{@post.end_time.strftime("%-H:%M %p")}" %></h2>
+<h2><%= "#{@post.user.name} | #{@post.date.to_s(:date_for_title)} #{@post.start_time.to_s(:time_for_title)} - #{@post.end_time.to_s(:time_for_title)}" %></h2>
 <h2>Answer</h2>
 
 <div class="form">

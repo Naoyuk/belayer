@@ -1,10 +1,12 @@
 class AnswersController < ApplicationController
   def index
-    @answers = Answer.joins(:post).where(post: {user_id: current_user.id}).order(created_at: :desc)
+    # @answers = Answer.joins(:post).where(post: {user_id: current_user.id}).order(created_at: :desc)
+    @posts = Post.where(user_id: current_user.id).order(created_at: :desc)
   end
 
   def show
     @answer = Answer.find(params[:id])
+    @post = Post.find(@answer.post_id)
     @answer.read = true
     @answer.save
   end
