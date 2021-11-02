@@ -8,13 +8,19 @@
         </h2>
       </div>
 
-      <% post.answers.each do |answer| %>
-        <div class="answer">
-          <% if !answer.read %>
-            <span class="new-message">New</span>
-          <% end %>
-            <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
-        </div>
+      <% post.answers.order(created_at: :desc).each do |answer| %>
+
+        <% if answer.user_id != current_user.id %>
+          <div class="answer">
+            <% if !answer.read %>
+              <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
+            <% else %>
+              <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
+            <% end %>
+              <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
+          </div>
+        <% end %>
+
       <% end %>
     <% end %>
   <% end %>

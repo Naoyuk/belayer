@@ -1,27 +1,37 @@
 <div class="answer">
-  <h2>
-    A message from
-    <span class="answerer"><%= link_to "#{@answer.user.name} ( #{@answer.created_at.to_s(:time_for_body)} )", answer_path(@answer) %></span>
-  </h2>
 
-  <div class="answer-body">
-    <p><%= @answer.body %></p>
-  </div>
-
-  <h2>Original Post</h2>
-  <div class="post">
-    <p>Date: <%= "#{@answer.post.date.to_s(:date_for_title)}" %></p>
-    <p>Time: <%= "#{@answer.post.start_time.to_s(:time_for_title)} - #{@answer.post.end_time.to_s(:time_for_title)}" %></p>
-    <div class="post-body">
-      <p><%= @answer.post.kind_of_climbing.camelize %></p>
-      <p><%= @answer.post.describe %></p>
+  <div id="post_answered">
+    <h2>Post</h2>
+    <div class="post">
+      <p>Date: <%= "#{@answer.post.date.to_s(:date_for_title)}" %></p>
+      <p>Time: <%= "#{@answer.post.start_time.to_s(:time_for_title)} - #{@answer.post.end_time.to_s(:time_for_title)}" %></p>
+      <div class="post-body">
+        <p><%= @answer.post.kind_of_climbing.camelize %></p>
+        <p><%= @answer.post.describe.truncate(30) %></p>
+      </div>
     </div>
   </div>
 
-  <div class="post-link">
-    <% if @answer.post.user_id != current_user.id %>
-      <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id), class: "button button-submit" %>
+  <div>
+    <%= "Answer_id: #{@answer.id}" %>
+    <%= "Thread_id: #{@answer.thread_id}" %>
+  </div>
+
+  <div class="conversation">
+    <% @answers.each do |answer| %>
+      <div class="message<%= answer.user_id == current_user.id ? " message-mine" : " message-other" %>">
+        <div class="message-inner">
+          <h3>
+            <span class="answerer"><%= "answer_id: #{answer.id}, thread_id: #{answer.thread_id}, #{answer.user.name}[#{answer.user_id}] ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
+          </h3>
+          <p><%= answer.body %></p>
+        </div>
+      </div>
     <% end %>
+  </div>
+
+  <div class="post-link">
+    <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id, thread_id: @answer.thread_id), class: "button button-submit" %>
     <%= form_with model: @answer, url: { controller: 'answers', action: 'unread' } do |f| %>
       <%= f.hidden_field :read, :value => false %>
       <%= f.submit "Make this message unread", class: "button button-unread" %>

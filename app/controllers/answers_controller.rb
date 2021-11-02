@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   def show
     @answer = Answer.find(params[:id])
     @post = Post.find(@answer.post_id)
+    @answers = Answer.where(post_id: @post.id, thread_id: @answer.thread_id)
     @answer.read = true
     @answer.save
   end
@@ -14,15 +15,21 @@ class AnswersController < ApplicationController
   def new
     @answer = Answer.new
     @post = Post.find(params[:post_id])
+    @answer.thread_id = params[:thread_id]
   end
 
   def create
     @answer = Answer.new(answer_params)
+    if @answer.first_answer?(post_id: @answer.post_id, user_id: @answer.user_id, thread_id: @answer.thread_id)
+      @answer.thread_id = @answer.user_id
+    else
+      @answer.thread_id = @answer.thread_id
+    end
     @post = Post.find(params[:answer][:post_id])
 
     if @answer.save
       respond_to do |format|
-        format.html { redirect_to post_url(@answer.post_id), notice: "Message was successfully sent." }
+        format.html { redirect_to answer_url(@answer), notice: "Message was successfully sent." }
         format.json { render :show, status: :created, location: @answer.post }
       end
     else
@@ -61,6 +68,6 @@ class AnswersController < ApplicationController
 
   private
     def answer_params
-      params.require(:answer).permit(:body, :read, :snoozed_at, :post_id, :user_id)
+      params.require(:answer).permit(:body, :read, :snoozed_at, :post_id, :user_id, :thread_id)
     end
 end
