@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_073056) do
+ActiveRecord::Schema.define(version: 2021_11_04_075527) do
 
   create_table "answers", force: :cascade do |t|
     t.text "body"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 2021_11_02_073056) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", null: false
     t.integer "post_id", null: false
-    t.integer "thread_id"
+    t.integer "room_id"
     t.index ["post_id"], name: "index_answers_on_post_id"
-    t.index ["thread_id"], name: "index_answers_on_thread_id"
+    t.index ["room_id"], name: "index_answers_on_room_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2021_11_02_073056) do
     t.text "describe"
     t.integer "user_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "host_user_id"
+    t.integer "answerer_user_id"
+    t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_rooms_on_post_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,4 +63,5 @@ ActiveRecord::Schema.define(version: 2021_11_02_073056) do
   add_foreign_key "answers", "posts"
   add_foreign_key "answers", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "rooms", "posts"
 end

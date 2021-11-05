@@ -5,6 +5,7 @@
     <div class="post">
       <p>Date: <%= "#{@answer.post.date.to_s(:date_for_title)}" %></p>
       <p>Time: <%= "#{@answer.post.start_time.to_s(:time_for_title)} - #{@answer.post.end_time.to_s(:time_for_title)}" %></p>
+      <p>Posted by: <%= "#{@answer.post.user.name}" %></p>
       <div class="post-body">
         <p><%= @answer.post.kind_of_climbing.camelize %></p>
         <p><%= @answer.post.describe.truncate(30) %></p>
@@ -14,7 +15,7 @@
 
   <div>
     <%= "Answer_id: #{@answer.id}" %>
-    <%= "Thread_id: #{@answer.thread_id}" %>
+    <%= "room_id: #{@answer.room_id}" %>
   </div>
 
   <div class="conversation">
@@ -22,7 +23,7 @@
       <div class="message<%= answer.user_id == current_user.id ? " message-mine" : " message-other" %>">
         <div class="message-inner">
           <h3>
-            <span class="answerer"><%= "answer_id: #{answer.id}, thread_id: #{answer.thread_id}, #{answer.user.name}[#{answer.user_id}] ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
+            <span class="answerer"><%= "answer_id: #{answer.id}, room_id: #{answer.room_id}, #{answer.user.name}[#{answer.user_id}] ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
           </h3>
           <p><%= answer.body %></p>
         </div>
@@ -31,7 +32,7 @@
   </div>
 
   <div class="post-link">
-    <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id, thread_id: @answer.thread_id), class: "button button-submit" %>
+    <%= link_to 'Answer', new_answer_path(post_id: @answer.post_id, room_id: @answer.room_id), class: "button button-submit" %>
     <%= form_with model: @answer, url: { controller: 'answers', action: 'unread' } do |f| %>
       <%= f.hidden_field :read, :value => false %>
       <%= f.submit "Make this message unread", class: "button button-unread" %>

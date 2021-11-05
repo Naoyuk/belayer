@@ -1,0 +1,18 @@
+<% if @rooms %>
+  <% @rooms.each do |room| %>
+    <div class="room">
+      <h2>
+        <span class="post-owner"><%= link_to room.post.user.name, user_path(room.post.user) %></span>
+        <span class="date"><%= "#{post.date.to_s(:date_for_title)}" %></span>
+        <br>
+        <span class="time"><%= "#{post.start_time.to_s(:time_for_title)} - #{post.end_time.to_s(:time_for_title)}" %></span>
+      </h2>
+      <div class="post-body">
+        <p><%= room.post.kind_of_climbing.camelize %></p>
+        <p><%= room.post.describe %></p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>You don't have any messages.</p>
+<% end %>

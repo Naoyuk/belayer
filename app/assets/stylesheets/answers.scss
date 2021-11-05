@@ -29,6 +29,7 @@
 
 .answer .conversation .message-other .message-inner {
   display: inline-block;
+  max-width: 70%;
   background-color: #eee;
   color: #444;
   border-radius: 10px;
@@ -40,6 +41,7 @@
 
 .answer .conversation .message-mine .message-inner {
   display: inline-block;
+  max-width: 70%;
   text-align: left;
   background-color: #458aff;
   color: #fff;

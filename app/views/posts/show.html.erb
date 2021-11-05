@@ -16,7 +16,7 @@
     <% if @post.user_id == current_user.id %>
       <%= link_to 'Edit', edit_post_path(@post) %> |
     <% else %>
-      <%= link_to 'Answer', new_answer_path(post_id: @post.id), class: "button button-submit" %>
+      <%= link_to 'Message', new_answer_path(post_id: @post.id), class: "button button-submit" %>
     <% end %>
     <%= link_to 'Back', posts_path %>
   </div>
