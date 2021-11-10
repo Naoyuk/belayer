@@ -2,15 +2,15 @@
 <div class="answers">
 
     <div id="post_answered">
-      <h2>Post</h2>
       <div class="post">
-        <h3>room.id: <%= @room.id %></h3>
-        <p>Date: <%= "#{@room.post.date.to_s(:date_for_title)}" %></p>
-        <p>Time: <%= "#{@room.post.start_time.to_s(:time_for_title)} - #{@room.post.end_time.to_s(:time_for_title)}" %></p>
-        <p>Posted by: <%= "#{@room.post.user.name}" %></p>
         <div class="post-body">
-          <p><%= @room.post.kind_of_climbing.camelize %></p>
-          <p><%= @room.post.describe.truncate(30) %></p>
+          <p>
+            [ <%= @room.post.kind_of_climbing.camelize %> ]
+            <%= "#{@room.post.date.to_s(:date_for_title)}" %>
+            (<%= "#{@room.post.start_time.to_s(:time_for_title)} - #{@room.post.end_time.to_s(:time_for_title)} ), " %>
+            <%= "#{@room.post.user.name}" %>
+          </p>
+          <p><%= @room.post.describe %></p>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="message<%= answer.user_id == current_user.id ? " message-mine" : " message-other" %>">
           <div class="message-inner">
             <h3>
-              <span class="answerer"><%= "answer_id: #{answer.id}, room_id: #{answer.room_id}, #{answer.user.name}[#{answer.user_id}] ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
+              <span class="answerer"><%= "#{answer.user.name} ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
             </h3>
             <p><%= answer.body %></p>
           </div>
