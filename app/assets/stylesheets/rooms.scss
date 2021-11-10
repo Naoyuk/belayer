@@ -1,3 +1,29 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.answers .conversation .message-inner {
+  margin: 5px auto;
+  padding: 5px 10px;
+}
+
+.answers .conversation .message-other .message-inner {
+  display: inline-block;
+  max-width: 70%;
+  background-color: #eee;
+  color: #444;
+  border-radius: 10px;
+}
+
+.answers .conversation .message-mine {
+  text-align: right;
+}
+
+.answers .conversation .message-mine .message-inner {
+  display: inline-block;
+  max-width: 70%;
+  text-align: left;
+  background-color: #458aff;
+  color: #fff;
+  border-radius: 10px;
+}

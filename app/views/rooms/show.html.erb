@@ -1,22 +1,37 @@
 <h2>Message Box</h2>
 <div class="answers">
-    <div class="post">
-      <h2>
-        <%= "#{@room.post.date.to_s(:date_for_title)} #{@room.post.start_time.to_s(:time_for_title)} - #{@room.post.end_time.to_s(:time_for_title)}" %>
-      </h2>
-      <p><%= @room.post.describe %></p>
+
+    <div id="post_answered">
+      <h2>Post</h2>
+      <div class="post">
+        <h3>room.id: <%= @room.id %></h3>
+        <p>Date: <%= "#{@room.post.date.to_s(:date_for_title)}" %></p>
+        <p>Time: <%= "#{@room.post.start_time.to_s(:time_for_title)} - #{@room.post.end_time.to_s(:time_for_title)}" %></p>
+        <p>Posted by: <%= "#{@room.post.user.name}" %></p>
+        <div class="post-body">
+          <p><%= @room.post.kind_of_climbing.camelize %></p>
+          <p><%= @room.post.describe.truncate(30) %></p>
+        </div>
+      </div>
     </div>
 
-    <% @room.answers.order(created_at: :desc).each do |answer| %>
+    <div class="conversation">
+      <% @room.answers.each do |answer| %>
+        <div class="message<%= answer.user_id == current_user.id ? " message-mine" : " message-other" %>">
+          <div class="message-inner">
+            <h3>
+              <span class="answerer"><%= "answer_id: #{answer.id}, room_id: #{answer.room_id}, #{answer.user.name}[#{answer.user_id}] ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
+            </h3>
+            <p><%= answer.body %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-      <div class="answer">
-        <% if !answer.read %>
-          <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
-        <% else %>
-          <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
-        <% end %>
-          <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
-      </div>
+    <div class="post-link">
+      <%= link_to 'Answer', new_answer_path(post_id: @room.post_id, room_id: @room.id), class: "button button-submit" %>
+      <%= link_to 'Back', answers_path %>
+    </div>
 
-    <% end %>
 </div>
+

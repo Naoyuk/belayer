@@ -5,6 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   
+  has_many :rooms
   has_many :answers
 
   enum kind_of_climbing: {

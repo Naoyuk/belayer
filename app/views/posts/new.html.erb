@@ -1,4 +1,6 @@
-<h2>New Post</h2>
+<%= turbo_frame_tag 'new_message' do %>
+  <h2>New Post</h2>
 
-<%= render 'form', post: @post %>
-<%= link_to 'back', posts_path %>
+  <%= render 'form', post: @post %>
+  <%= link_to 'back', posts_path %>
+<% end %>

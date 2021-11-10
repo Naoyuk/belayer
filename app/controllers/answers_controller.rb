@@ -17,23 +17,22 @@ class AnswersController < ApplicationController
   end
 
   def new
-    @room = Room.create(post_id: params[:post_id], host_user_id: params[:host_user_id], answerer_user_id: params[:answerer_user_id])
-    @answer = @room.build.answer(user_id: current_user.id, post_id: @room.post_id)
-    @post = Post.find(params[:post_id])
+    @room = Room.find_or_create_by(id: params[:room_id]) do |room|
+      room.post_id = params[:post_id]
+      room.answerer_user_id = params[:answerer_user_id]
+      room.host_user_id = params[:host_user_id]
+    end
+    @answer = @room.answers.new(user_id: current_user.id, post_id: @room.post_id)
   end
 
   def create
     @answer = Answer.new(answer_params)
-    if @answer.first_answer?(post_id: @answer.post_id, user_id: @answer.user_id, room_id: @answer.room_id)
-      @answer.room_id = @answer.user_id
-    else
-      @answer.room_id = @answer.room_id
-    end
+    @answer.user_id = current_user.id
     @post = Post.find(params[:answer][:post_id])
 
     if @answer.save
       respond_to do |format|
-        format.html { redirect_to answer_url(@answer), notice: "Message was successfully sent." }
+        format.html { redirect_to room_url(@answer.room), notice: "Message was successfully sent." }
         format.json { render :show, status: :created, location: @answer.post }
       end
     else
