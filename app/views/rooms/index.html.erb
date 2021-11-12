@@ -4,18 +4,17 @@
 
     <% post.rooms.each do |room| %>
       <% if room.host_user_id == current_user.id || room.answerer_user_id == current_user.id %>
-        <% room.answers.each do |answer| %>
-          <div class="room">
-            <div class="answer">
-              <% if !answer.read %>
-                <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
-              <% else %>
-                <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
-              <% end %>
-                <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", room_path(room) %></span>
-            </div>
+        <% latest_answer = room.answers.where.not(user_id: current_user.id).last %>
+        <div class="room">
+          <div class="answer">
+            <% if !latest_answer.read %>
+              <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
+            <% else %>
+              <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
+            <% end %>
+              <span class="answerer"><%= link_to "#{latest_answer.user.name} ( #{latest_answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", room_path(room) %></span>
           </div>
-        <% end %>
+        </div>
       <% end %>
     <% end %>
   <% end %>

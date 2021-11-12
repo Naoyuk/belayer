@@ -6,6 +6,14 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+
+    # Make read all unread messages.
+    @room.answers.each do |answer|
+      if answer.read == false && answer.user_id != current_user.id
+        answer.read = true
+        answer.save
+      end
+    end
   end
 
   def create
