@@ -8,7 +8,8 @@ RSpec.describe "Answers", type: :request do
     @answerer = FactoryBot.create(:user)
     sign_in @owner
     @post =  FactoryBot.create(:post, user: @owner)
-    @answer = FactoryBot.create(:answer, user: @answerer, post: @post)
+    @room =  FactoryBot.create(:room, post: @post, host_user_id: @owner, answerer_user_id: @answerer)
+    @answer = FactoryBot.create(:answer, user: @answerer, post: @post, room: @room)
   end
 
   describe "GET /index" do
@@ -39,15 +40,9 @@ RSpec.describe "Answers", type: :request do
       expect(answer).to be_valid
     end
 
-    it "is invalid to answer to your own post" do
-      pending("TODO: Implement in Model")
-      answer = FactoryBot.build(:answer, user: @owner, post: @post)
-      expect(answer).to_not be_valid
-    end
-
     context "with valid parameters" do
       before do
-        @valid_attributes = { body: 'Text text,.', post_id: @post.id, user_id: @answerer.id }
+        @valid_attributes = { body: 'Text text,.', room_id: @room.id, post_id: @post.id, user_id: @answerer.id }
       end
 
       it "creates a new Answer" do
@@ -58,7 +53,7 @@ RSpec.describe "Answers", type: :request do
 
       it "redirects to the post you answered" do
         post answers_url, params: { answer: @valid_attributes }
-        expect(response).to redirect_to(post_url(@post))
+        expect(response).to redirect_to(room_url(@room))
       end
     end
 
