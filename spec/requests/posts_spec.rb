@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "/posts", type: :request do
+RSpec.describe "Posts", type: :request do
   
   let(:valid_attributes) {
     {

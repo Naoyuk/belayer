@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
   def index
     @posts = Post.joins(:rooms).where(rooms: {host_user_id: current_user.id}).or(Post.joins(:rooms).where(rooms: {answerer_user_id: current_user.id})).distinct
-    @rooms = Room.where(host_user_id: current_user.id).or(Room.where(answerer_user_id: current_user.id))
+    @has_rooms = Room.where(host_user_id: current_user.id).or(Room.where(answerer_user_id: current_user.id))
   end
 
   def show

@@ -12,21 +12,6 @@ RSpec.describe "Answers", type: :request do
     @answer = FactoryBot.create(:answer, user: @answerer, post: @post, room: @room)
   end
 
-  describe "GET /index" do
-    it "returns http success" do
-      sign_in @user
-      get answers_url
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /show" do
-    it "returns http success" do
-      get answer_url(@answer)
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe "GET /new" do
     it "returns http success" do
       get new_answer_url(post_id: @post.id)

@@ -1,21 +1,4 @@
 class AnswersController < ApplicationController
-  def index
-    # @answers = Answer.joins(:post).where(post: {user_id: current_user.id}).order(created_at: :desc)
-    # @posts = Post.where(user_id: current_user.id).order(created_at: :desc)
-    # @answers = Answer.joins(:post).where(user_id: current_user.id).order(created_at: :desc)
-    # @posts = Post.joins(:answers).where(answers: { user_id: current_user.id })
-    @rooms = Room.joins(:post).where(post: { user_id: current_user.id })
-      # .or(Room.joins(:answers).where(answers: { user_id: current_user.id }))
-  end
-
-  def show
-    @answer = Answer.find(params[:id])
-    @post = Post.find(@answer.post_id)
-    @answers = Answer.where(post_id: @post.id, room_id: @answer.room_id)
-    @answer.read = true
-    @answer.save
-  end
-
   def new
     @room = Room.find_or_create_by(id: params[:room_id]) do |room|
       room.post_id = params[:post_id]
