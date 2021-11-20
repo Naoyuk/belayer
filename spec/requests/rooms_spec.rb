@@ -52,17 +52,31 @@ RSpec.describe "Rooms", type: :request do
   describe "GET /show" do
     context "as an authenticated user" do
       before do
-        sign_in @user
+        @other_answer = Answer.create(
+          post_id: @post.id,
+          user_id: @user.id,
+          room_id: @room.id,
+          body: "test text2"
+        )
       end
 
       it "returns successful response" do
+        sign_in @user
         get room_url(@room)
         expect(response).to be_successful
       end
 
       it "returns a 200 response" do
+        sign_in @user
         get room_url(@room)
         expect(response).to have_http_status "200"
+      end
+
+      it "makes all messages related the room you open read status" do
+        sign_in @answerer
+        get room_url(@room)
+        expect(Answer.first.read).to eq true
+        expect(Answer.last.read).to eq true
       end
     end
 
