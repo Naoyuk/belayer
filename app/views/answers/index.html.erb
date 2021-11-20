@@ -1,14 +1,28 @@
 <h1>Message Box</h1>
 <div class="answers">
-  <% @answers.each do |answer| %>
-    <div class="answer">
-      <% if !answer.read %>
-        <span class="new-message">New</span>
-      <% end %>
+  <% @rooms.each do |room| %>
+
+    <div class="original-post">
       <h2>
-        A message from 
-        <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
+        <%= "#{room.post.date.to_s(:date_for_title)} #{room.post.start_time.to_s(:time_for_title)} - #{room.post.end_time.to_s(:time_for_title)}" %>
       </h2>
+      <p><%= room.post.describe.truncate(60) %></p>
     </div>
+
+    <% room.answers.order(created_at: :desc).each do |answer| %>
+
+      <% if answer.room_id == current_user.id || answer.post.user_id == current_user.id %>
+        <div class="answer">
+          <% if !answer.read %>
+            <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
+          <% else %>
+            <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
+          <% end %>
+            <span class="answerer"><%= link_to "#{answer.user.name} ( #{answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", answer_path(answer) %></span>
+        </div>
+      <% end %>
+
+    <% end %>
+
   <% end %>
 </div>

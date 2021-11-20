@@ -4,9 +4,9 @@
     <div class="post">
       <h2>
         <span class="post-owner"><%= link_to post.user.name, post_path(post) %></span>
-        <span class="date"><%= "#{post.date.strftime("%A, %b %d")}" %></span>
+        <span class="date"><%= "#{post.date.to_s(:date_for_title)}" %></span>
         <br>
-        <span class="time"><%= "#{post.start_time.strftime("%-H:%M %p")} - #{post.end_time.strftime("%-H:%M %p")}" %></span>
+        <span class="time"><%= "#{post.start_time.to_s(:time_for_title)} - #{post.end_time.to_s(:time_for_title)}" %></span>
       </h2>
       <div class="post-body">
         <p><%= post.kind_of_climbing.camelize %></p>

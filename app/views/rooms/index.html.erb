@@ -1,0 +1,26 @@
+<% if @has_rooms %>
+  <% @posts.each do |post| %>
+    <p><%= post.describe %></p>
+
+    <% post.rooms.each do |room| %>
+      <% if room.host_user_id == current_user.id || room.answerer_user_id == current_user.id %>
+        <% latest_answer = room.answers.where.not(user_id: current_user.id).last %>
+        <% if latest_answer %>
+          <div class="room">
+            <div class="answer">
+              <% if !latest_answer.read %>
+                <span style="font-size: 24px; color: tomato;"><i class="far fa-envelope"></i></span>
+              <% else %>
+                <span style="font-size: 24px; color: Dodgerblue;"><i class="far fa-envelope-open"></i></i></span>
+              <% end %>
+                <span class="answerer"><%= link_to "#{latest_answer.user.name} ( #{latest_answer.created_at.strftime("%A, %b %d %-H:%M %p")} )", room_path(room) %></span>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <p>You don't have any messages.</p>
+<% end %>

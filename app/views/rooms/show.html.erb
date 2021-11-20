@@ -1,0 +1,37 @@
+<h2>Message Box</h2>
+<div class="answers">
+
+    <div id="post_answered">
+      <div class="post">
+        <div class="post-body">
+          <p>
+            [ <%= @room.post.kind_of_climbing.camelize %> ]
+            <%= "#{@room.post.date.to_s(:date_for_title)}" %>
+            (<%= "#{@room.post.start_time.to_s(:time_for_title)} - #{@room.post.end_time.to_s(:time_for_title)} ), " %>
+            <%= "#{@room.post.user.name}" %>
+          </p>
+          <p><%= @room.post.describe %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="conversation">
+      <% @room.answers.each do |answer| %>
+        <div class="message<%= answer.user_id == current_user.id ? " message-mine" : " message-other" %>">
+          <div class="message-inner">
+            <h3>
+              <span class="answerer"><%= "#{answer.user.name} ( #{answer.created_at.to_s(:time_for_body)} )" %></span>
+            </h3>
+            <p><%= answer.body %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="post-link">
+      <%= link_to 'Answer', new_answer_path(post_id: @room.post_id, room_id: @room.id), class: "button button-submit" %>
+      <%= link_to 'Back', rooms_path %>
+    </div>
+
+</div>
+
