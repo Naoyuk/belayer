@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :users
   resources :answers
+  resources :rooms
 
   patch '/answers/:id/unread', action: :unread, controller: 'answers'
 

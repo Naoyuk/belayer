@@ -1,26 +1,11 @@
-<h2><%= "#{@post.user.name} | #{@post.date.strftime("%A, %b %d")} #{@post.start_time.strftime("%-H:%M %p")} - #{@post.end_time.strftime("%-H:%M %p")}" %></h2>
-<h2>Answer</h2>
-
 <div class="form">
   <%= form_with(model: @answer) do |form| %>
-    <% if @answer.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-
-        <ul>
-          <% @answer.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="form-controller form-date">
       <%= form.text_area :body, rows: 10, placeholder: "Message here" %>
     </div>
 
-    <%= form.hidden_field :post_id, value: @post.id %>
-    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :post_id, value: @answer.post.id %>
+    <%= form.hidden_field :room_id, value: @answer.room_id %>
     <div class="form-controller">
       <%= form.submit "Send Answer", class: 'button button-submit' %>
     </div>
