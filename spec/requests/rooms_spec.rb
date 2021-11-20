@@ -5,14 +5,7 @@ RSpec.describe "Rooms", type: :request do
   before do
     @user = FactoryBot.create(:user)
     @answerer = FactoryBot.create(:user)
-    @post = Post.create(
-      user_id: @user.id,
-      date: Date.new.strftime("%Y-%m-%d"),
-      start_time: Time.new.strftime("%h:%m"),
-      end_time: Time.new.strftime("%h:%m"),
-      kind_of_climbing: 0,
-      describe: "test test"
-    )
+    @post = FactoryBot.create(:post, user: @user)
     @room = Room.create(
       post_id: @post.id,
       host_user_id: @user.id,
@@ -24,15 +17,65 @@ RSpec.describe "Rooms", type: :request do
       room_id: @room.id,
       body: "test text"
     )
-    # @answer = @room.answers.create(user_id: @answerer.id, post_id: @post.id)
   end
 
   describe "GET /index" do
-    it "returns http success" do
-      sign_in @user
-      get rooms_url
-      expect(response).to have_http_status(:success)
+    context "as an authenticated user" do
+      before do
+        sign_in @user
+      end
+
+      it "returns successful response" do
+        get rooms_url
+        expect(response).to be_successful
+      end
+
+      it "returns a 200 response" do
+        get rooms_url
+        expect(response).to have_http_status "200"
+      end
+    end
+
+    context "as a guest" do
+      it "returns 302 response" do
+        get rooms_url
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirect to the sign-in page" do
+        get rooms_url
+        expect(response).to redirect_to "/users/sign_in"
+      end
     end
   end
 
+  describe "GET /show" do
+    context "as an authenticated user" do
+      before do
+        sign_in @user
+      end
+
+      it "returns successful response" do
+        get room_url(@room)
+        expect(response).to be_successful
+      end
+
+      it "returns a 200 response" do
+        get room_url(@room)
+        expect(response).to have_http_status "200"
+      end
+    end
+
+    context "as a guest" do
+      it "returns 302 response" do
+        get room_url(@room)
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirect to the sign-in page" do
+        get room_url(@room)
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
 end

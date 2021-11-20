@@ -14,17 +14,13 @@ RSpec.describe Answer, type: :model do
   end
 
   describe 'validates for parameters' do
-    context 'when with valid params' do
-      it 'is valid' do
-        expect(@answer).to be_valid
-      end
+    it 'is valid with valid params' do
+      expect(@answer).to be_valid
     end
 
-    context 'when without body' do
-      it 'is invalid' do
-        @answer.body = nil
-        expect(@answer).to_not be_valid
-      end
+    it 'is invalid without body' do
+      @answer.body = nil
+      expect(@answer).to_not be_valid
     end
   end
 end

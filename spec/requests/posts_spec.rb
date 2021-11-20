@@ -3,23 +3,11 @@ require 'rails_helper'
 RSpec.describe "Posts", type: :request do
   
   let(:valid_attributes) {
-    {
-      date: Date.new.strftime("%Y-%m-%d"),
-      start_time: Time.new.strftime("%H:%M"),
-      end_time: Time.new.strftime("%H:%M"),
-      kind_of_climbing: :sport,
-      describe: 'test test'
-    }
+    FactoryBot.attributes_for(:post)
   }
 
   let(:invalid_attributes) {
-    {
-      date: nil,
-      start_time: nil,
-      end_time: nil,
-      kind_of_climbing: nil,
-      describe: nil
-    }
+    FactoryBot.attributes_for(:post, :invalid)
   }
 
   let(:user) { FactoryBot.create(:user) }
@@ -66,6 +54,11 @@ RSpec.describe "Posts", type: :request do
         get post_url(@post)
         expect(response).to be_successful
       end
+
+      it "returns a 200 response" do
+        get post_url(@post)
+        expect(response).to have_http_status "200"
+      end
     end
 
     context 'as a guest' do
@@ -96,6 +89,11 @@ RSpec.describe "Posts", type: :request do
         get new_post_url
         expect(response).to be_successful
       end
+
+      it "returns a 200 response" do
+        get new_post_url
+        expect(response).to have_http_status "200"
+      end
     end
 
     context 'as a guest' do
@@ -121,6 +119,11 @@ RSpec.describe "Posts", type: :request do
       it "render a successful response" do
         get edit_post_url(@post)
         expect(response).to be_successful
+      end
+
+      it "returns a 200 response" do
+        get edit_post_url(@post)
+        expect(response).to have_http_status "200"
       end
     end
 
@@ -176,9 +179,25 @@ RSpec.describe "Posts", type: :request do
         end
       end
     end
+
+    context "as a guest" do
+      it "returns a 302 response" do
+        post posts_url, params: { post: valid_attributes, user: user }
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirect to the sign-in page" do
+        post posts_url, params: { post: valid_attributes, user: user }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 
   describe "PATCH /update" do
+    let(:new_attributes) {
+      FactoryBot.attributes_for(:post, :new_attributes)
+    }
+
     context 'as an authenticated user' do
       before do
         sign_in user
@@ -186,16 +205,6 @@ RSpec.describe "Posts", type: :request do
       end
 
       context "with valid parameters" do
-
-        let(:new_attributes) {
-          {
-            date: Date.tomorrow.strftime("%Y-%m-%d"),
-            start_time: Date.tomorrow.strftime("%H:%M"),
-            end_time: Date.tomorrow.strftime("%H:%M"),
-            kind_of_climbing: :multi_pitches
-          }
-        }
-
         it "updates the requested post" do
           patch post_url(@post), params: { post: new_attributes }
           @post.reload
@@ -216,6 +225,22 @@ RSpec.describe "Posts", type: :request do
         end
       end
     end
+
+    context "as a guest" do
+      before do
+        @post = FactoryBot.create(:post)
+      end
+
+      it "returns a 302 response" do
+        patch post_url(@post), params: { post: new_attributes }
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirect to the sign-in page" do
+        patch post_url(@post), params: { post: new_attributes }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 
   describe "DELETE /destroy" do
@@ -234,6 +259,22 @@ RSpec.describe "Posts", type: :request do
       it "redirects to the posts list" do
         delete post_url(@post)
         expect(response).to redirect_to(posts_url)
+      end
+    end
+
+    context "as a guest" do
+      before do
+        @post = FactoryBot.create(:post, user: user)
+      end
+
+      it "returns a 302 response" do
+        delete post_url(@post)
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirect to the sign-in page" do
+        delete post_url(@post)
+        expect(response).to redirect_to "/users/sign_in"
       end
     end
   end

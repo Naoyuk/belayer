@@ -26,34 +26,35 @@ class AnswersController < ApplicationController
     end
   end
 
-  def update
-    @answer = Answer.find(params[:id])
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.html { redirect_to answers_url, notice: "Post was successfully updated." }
-        format.json { render :index }
-      else
-        format.html { render :edit }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   @answer = Answer.find(params[:id])
+  #   respond_to do |format|
+  #     if @answer.update(answer_params)
+  #       format.html { redirect_to answers_url, notice: "Post was successfully updated." }
+  #       format.json { render :index }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @answer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
-  def unread
-    @answer = Answer.find(params[:id])
-    respond_to do |format|
-      if @answer.unread
-        format.html { redirect_to answers_url }
-        #TODO: format.json is not written yet. I'm wondering what should I return.
-      else
-        format.html { render :show }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def unread
+  #   @answer = Answer.find(params[:id])
+  #   respond_to do |format|
+  #     if @answer.unread
+  #       format.html { redirect_to answers_url }
+  #     else
+  #       format.html { render :show }
+  #       format.json { render json: @answer.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   private
+
     def answer_params
       params.require(:answer).permit(:body, :read, :snoozed_at, :post_id, :user_id, :room_id)
     end
+
 end
