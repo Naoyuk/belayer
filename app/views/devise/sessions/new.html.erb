@@ -4,6 +4,9 @@
     <h1>Log in</h1>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <% flash.each do |key, value| %>
+        <div class="<%= key %>"><%= value %></div>
+      <% end %>
       <div class="box-form box-email">
         <%= f.label :email, "Email" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
