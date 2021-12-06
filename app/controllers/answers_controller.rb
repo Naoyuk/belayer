@@ -12,8 +12,16 @@ class AnswersController < ApplicationController
     @answer = Answer.new(answer_params)
     @answer.user_id = current_user.id
     @post = Post.find(params[:answer][:post_id])
+    @message_to = @answer.user_id == @answer.room.host_user_id ? @answer.room.answerer.email : @answer.room.host.email
 
     if @answer.save
+      NoticeMailer.with(
+        {
+          message_from: @answer.user.name,
+          room: @answer.room,
+          message_to: @message_to
+        }
+      ).new_message.deliver_later
       respond_to do |format|
         format.html { redirect_to room_url(@answer.room), notice: "Message was successfully sent." }
         format.json { render :show, status: :created, location: @answer.post }

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>You got a message from <%= @message_from.name %></h1>
+    <p>Click below link to read the message</p>
+    <p><%= link_to 'Read the message', room_url(@room) %></p>
+  </body>
+</html>
+
