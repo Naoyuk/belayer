@@ -1,5 +1,16 @@
-<h1>Notice#new_message</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
 
-<p>
-  <%= @greeting %>, find me in app/views/notice_mailer/new_message.html.erb
-</p>
+  <body>
+    <h1>You got a message from <%= @message_from %></h1>
+    <p>Hi <%= @message_to %>!</p>
+    <p>Please click on the link below to see the message.</p>
+    <p><%= link_to "Read the message", room_url(@room) %></p>
+    <hr>
+    <p>You will receive this e-mail when you get a reply to your post on Belay Finder.</p>
+  </body>
+</html>
+

@@ -6,8 +6,9 @@ class NoticeMailer < ApplicationMailer
   #   en.notice_mailer.new_message.subject
   #
   def new_message
-    @greeting = "Hi"
+    @message_from = params[:message_from]
+    @room = params[:room]
 
-    mail to: "to@example.org"
+    mail(to: params[:message_to], subject: 'New message')
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe "Answers", type: :request do
       before do
         sign_in @owner
         @post =  FactoryBot.create(:post, user: @owner)
-        @room =  FactoryBot.create(:room, post: @post, host_user_id: @owner, answerer_user_id: @answerer)
+        @room =  FactoryBot.create(:room, post: @post, host_user_id: @owner.id, answerer_user_id: @answerer.id)
         @answer = FactoryBot.create(:answer, user: @answerer, post: @post, room: @room)
       end
 
@@ -21,7 +21,7 @@ RSpec.describe "Answers", type: :request do
         get new_answer_url(
           post_id: @post.id, 
           room_id: @room.id, 
-          answerer_user_id: @room.answerer_user_id, 
+          answerer: @room.answerer, 
           host_user_id: @room.host_user_id
         )
         expect(response).to have_http_status(:success)
@@ -56,7 +56,7 @@ RSpec.describe "Answers", type: :request do
       before do
         sign_in @owner
         @post =  FactoryBot.create(:post, user: @owner)
-        @room =  FactoryBot.create(:room, post: @post, host_user_id: @owner, answerer_user_id: @answerer)
+        @room =  FactoryBot.create(:room, post: @post, host_user_id: @owner.id, answerer_user_id: @answerer.id)
         @answer = FactoryBot.create(:answer, user: @answerer, post: @post, room: @room)
         @valid_attributes = { body: 'Text text,.', room_id: @room.id, post_id: @post.id, user_id: @answerer.id }
       end
